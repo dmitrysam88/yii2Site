@@ -14,6 +14,7 @@ use yii\helpers\Html;
             <h2><?= $post->name ?></h2>
             <br>
             <p><?= $post->text ?></p>
+            <p><?= $post->created ?></p>
         </div>
     </div>
 </div>
@@ -23,6 +24,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-2">
                 <p><b><?= $user[$item->user_id] ?>:</b></p>
+                <p><?= $item->created?></p>
             </div>
             <div class="col-lg-10">
                 <p><?= $item->text ?></p>

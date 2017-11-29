@@ -79,6 +79,7 @@ $config = [
         'allowActions' => [
             'site/*',
             'post/*',
+            'message/*',
             'comment/*',
             'dialog/*',
             'admin/*',
