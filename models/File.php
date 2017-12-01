@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "file".
@@ -58,5 +59,29 @@ class File extends \yii\db\ActiveRecord
     public function getPosts()
     {
         return $this->hasMany(Post::className(), ['file_id' => 'id']);
+    }
+
+    public static function getImages(){
+
+        $querrys    = array();
+
+        $fields = ['file.id','file.`name`','file.path','file.size'];
+        $table  = 'file';
+        $likes = ['%.jpg','%.bmp','%.jpeg','%.png'];
+
+        foreach ($likes as $item){
+            $querry     = new Query();
+            $querry->select($fields)->from($table)->where(['like', 'file.path', $item, false]);
+            array_push($querrys,$querry);
+        }
+        $querry     = new Query();
+        foreach ($querrys as $key => $item){
+            if ($key == 0){
+                $querry = $item;
+            } else {
+                $querry->union($item);
+            }
+        }
+        return $querry;
     }
 }

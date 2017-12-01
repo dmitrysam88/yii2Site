@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\File;
 use app\models\Forma;
 use Symfony\Component\DomCrawler\Form;
 use Yii;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -145,14 +147,8 @@ class SiteController extends Controller
 
     public function actionMy_page(){
 
-        $form = new Forma();
+        $images = File::getImages()->all();
 
-        if ($form->load(Yii::$app->request->post()) && $form->validate()){
-            $form->file = UploadedFile::getInstance($form, 'file');
-            $form->file->saveAs('files/'.$form->file->baseName.".".$form->file->extension);
-        }
-        return $this->render('my_page',[
-            'form' => $form,
-        ]);
+        return $this->render('my_page');
     }
 }

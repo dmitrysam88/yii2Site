@@ -6,7 +6,6 @@ use yii\helpers\Html;
 
 ?>
 
-<? $f = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-    <?=$f->field($form, 'file')->fileInput() ?>
-    <?=Html::submitButton() ?>
-<? ActiveForm::end() ?>
+<h4>My page</h4>
+
+
