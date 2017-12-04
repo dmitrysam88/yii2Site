@@ -149,6 +149,8 @@ class SiteController extends Controller
 
         $images = File::getImages()->all();
 
-        return $this->render('my_page');
+        return $this->render('my_page',[
+            'images' => $images,
+        ]);
     }
 }

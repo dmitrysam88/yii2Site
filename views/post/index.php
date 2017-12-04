@@ -20,9 +20,12 @@ use yii\helpers\Url;
                         <h4><?= $item->name ?></h4>
                         <p><?= $item->text ?></p>
                         <p><?= $item->created ?></p>
+                        <?= Html::a(Html::tag('span',null,['class' => 'glyphicon glyphicon-pencil']),Url::to(['post/update', 'id' => $item->id])) ?>
                     </div>
                 </div>
             </div>
         </a>
     <? } ?>
 <? } ?>
+
+<?= Html::a('Create Dialog', ['create'], ['class' => 'btn btn-success']) ?>

@@ -63,25 +63,20 @@ class File extends \yii\db\ActiveRecord
 
     public static function getImages(){
 
-        $querrys    = array();
+        $querrys    = new Query();
 
-        $fields = ['file.id','file.`name`','file.path','file.size'];
-        $table  = 'file';
         $likes = ['%.jpg','%.bmp','%.jpeg','%.png'];
 
-        foreach ($likes as $item){
-            $querry     = new Query();
-            $querry->select($fields)->from($table)->where(['like', 'file.path', $item, false]);
-            array_push($querrys,$querry);
-        }
-        $querry     = new Query();
-        foreach ($querrys as $key => $item){
-            if ($key == 0){
-                $querry = $item;
+        foreach ($likes as $item) {
+            if ($item == '%.jpg') {
+                $querrys->select(['file.id', 'file.`name`', 'file.path', 'file.size'])->from('file')->where(['like', 'file.path', $item, false]);
             } else {
-                $querry->union($item);
+                $querry = new Query();
+                $querry->select(['file.id', 'file.`name`', 'file.path', 'file.size'])->from('file')->where(['like', 'file.path', $item, false]);
+                $querrys->union($querry);
             }
         }
-        return $querry;
+
+        return $querrys;
     }
 }
