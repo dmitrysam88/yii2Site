@@ -5,13 +5,17 @@ namespace app\controllers;
 use Yii;
 use app\models\Dialog;
 use app\models\DialogSearch;
+use yii\helpers\ArrayHelper;
 use \yii\web\Controller;
+use app\models\User_Dialog;
 
 class DialogController extends Controller
 {
     public function actionIndex()
     {
-        $model  = Dialog::find()->all();
+        $user_dialog = User_Dialog::find()->where(['user_id' => Yii::$app->getUser()->getId()])->all();
+        $dialogID = ArrayHelper::getColumn($user_dialog,'dialog_id');
+        $model = Dialog::findAll($dialogID);
 
         return $this->render('index',[
             'model' => $model,

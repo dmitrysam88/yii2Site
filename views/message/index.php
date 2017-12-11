@@ -23,8 +23,15 @@ use yii\helpers\Url;
             </div>
             <div class="col-lg-10">
                 <p><?= $item->text ?></p>
+                <?= Html::a(Html::tag('span', null, ['class' => 'glyphicon glyphicon-trash']),Url::to(['message/delete', 'id' => $item->id])) ?>
             </div>
         </div>
         <br>
     <? } ?>
 <? } ?>
+
+<div class="dialog-create">
+    <?= $this->render( '_form',[
+        'model' => $message,
+    ]) ?>
+</div>

@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 
@@ -28,8 +29,17 @@ use yii\helpers\Html;
             </div>
             <div class="col-lg-10">
                 <p><?= $item->text ?></p>
+                <?= Html::a(Html::tag('span', null, ['class' => 'glyphicon glyphicon-trash']),Url::to(['comment/delete', 'id' => $item->id])) ?>
             </div>
         </div>
         <br>
     <? } ?>
+<? } ?>
+
+<? if (!$isGuest) { ?>
+    <div class="dialog-create">
+        <?= $this->render('_form', [
+            'model' => $comment,
+        ]) ?>
+    </div>
 <? } ?>
