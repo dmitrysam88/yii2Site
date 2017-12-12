@@ -40,7 +40,10 @@ class MessageController extends \yii\web\Controller
 
         $model = $this->findModel($id);
         $dilogId = $model->dialog_id;
-        $model->delete();
+
+        if (Yii::$app->user->can('updateOwnPost',['post' => $model])){
+            $model->delete();
+        }
 
         return $this->redirect(['index', 'id' => $dilogId]);
 

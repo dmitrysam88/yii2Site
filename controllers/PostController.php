@@ -7,6 +7,7 @@ use app\models\File;
 use app\models\Post;
 use yii\helpers\ArrayHelper;
 use \yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 
 class PostController extends Controller
 {
@@ -45,6 +46,10 @@ class PostController extends Controller
     {
         $file   = File::find()->all();
         $model  = $this->findModel($id);
+
+        if (!Yii::$app->user->can('updateOwnPost',['post' => $model])){
+            throw new ForbiddenHttpException("Редактирование запрещено");
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);

@@ -45,8 +45,12 @@ class CommentController extends \yii\web\Controller
     public function actionDelete($id){
 
         $model = $this->findModel($id);
+
         $postId = $model->post_id;
-        $model->delete();
+
+        if (Yii::$app->user->can('updateOwnPost',['post' => $model])){
+            $model->delete();
+        }
 
         return $this->redirect(['index', 'id' => $postId]);
 
